@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nalum Portal Dashboard</title>
+    <style>
+      /* Basic Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 20px;
+        justify-content: center;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+      }
+
+      .card-header {
+        background-color: #7f1f22;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .card-content {
+        padding: 15px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .card-content p {
+        margin-bottom: 10px;
+      }
+
+      .btn {
+        display: inline-block;
+        background: #b43737;
+        color: #fff;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: center;
+        transition: background 0.3s;
+        align-self: flex-end;
+      }
+
+      .btn:hover {
+        background: #b43737b9;
+        color: #333;
+      }
+
+      .sidebar {
+        background: #7f1f22;
+        color: #fff;
+        padding: 20px;
+        width: 250px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar.closed {
+        transform: translateX(-100%);
+      }
+
+      .sidebar h1 {
+        margin-bottom: 20px;
+      }
+
+      .sidebar nav {
+        margin-top: 45%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .main-content {
+        margin-left: 270px;
+        padding: 20px;
+        flex: 1;
+        margin-top: 7%;
+        transition: margin-left 0.3s ease;
+      }
+
+      .main-content.full-width {
+        margin-left: 20px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #7f1f22;
+        color: #fff;
+        padding: 10px 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        transition: left 0.3s ease;
+      }
+
+      .header.full-width {
+        left: 0;
+      }
+
+      .header h1 {
+        margin: 0;
+        flex: 1;
+        text-align: center;
+      }
+
+      .header .sign-out {
+        background: #b43737;
+        color: #fff;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s;
+      }
+
+      .header .sign-out:hover {
+        background: #b43737b9;
+        color: #333;
+      }
+
+      .toggle-btn {
+        position: absolute;
+        top: 20px;
+        left: 250px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 1001;
+        transition: left 0.3s ease;
+      }
+
+      .toggle-btn img {
+        width: 30px;
+        height: 30px;
+      }
+
+      .toggle-btn.closed {
+        left: 20px;
+      }
+
+      .sidebar-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      .sidebar-buttons a {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 40px;
+        border-radius: 5px;
+        transition: background 0.3s;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .sidebar-buttons a:hover {
+        background: #b437375c;
+        color: #000;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="toggle-btn" onclick="toggleSidebar()">
+      <img src="close.png" alt="Toggle Sidebar" id="toggle-icon" />
+    </button>
+    <div class="sidebar">
+      <div class="sidebar-buttons">
+        <nav>
+          <a href="#" class="btn">Dashboard</a>
+          <a href="#" class="btn">Search Directory</a>
+          <a href="#" class="btn">Forum</a>
+          <a href="#" class="btn">Recruitments</a>
+          <a href="#" class="btn">Referrals</a>
+          <a href="#" class="btn">Startups</a>
+          <a href="#" class="btn">Calendar</a>
+          <a href="#" class="btn">Sessions</a>
+          <a href="#" class="btn">Articles</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="header">
+      <h1>Nalum Portal Dashboard</h1>
+      <a href="main.html" class="sign-out btn">Sign Out</a>
+    </div>
+
+    <div class="main-content">
+      <main class="container">
+        <!-- Search Directory -->
+        <div class="card">
+          <div class="card-header">Search Directory</div>
+          <div class="card-content">
+            <p>
+              Find and view details of all Nalum portal users, including branch,
+              year, and more.
+            </p>
+            <a href="#" class="btn">Explore</a>
+          </div>
+        </div>
+
+        <!-- Forum -->
+        <div class="card">
+          <div class="card-header">Forum</div>
+          <div class="card-content">
+            <p>
+              Start or join discussions and integrate seamlessly with WhatsApp.
+            </p>
+            <a href="#" class="btn">Join Forum</a>
+          </div>
+        </div>
+
+        <!-- Recruitments -->
+        <div class="card">
+          <div class="card-header">Recruitments</div>
+          <div class="card-content">
+            <p>
+              Facilitate job applications, postings, and candidate evaluations.
+            </p>
+            <a href="#" class="btn">View Jobs</a>
+          </div>
+        </div>
+
+        <!-- Referrals -->
+        <div class="card">
+          <div class="card-header">Referrals</div>
+          <div class="card-content">
+            <p>
+              Request and manage referrals to foster professional connections.
+            </p>
+            <a href="#" class="btn">Request Referral</a>
+          </div>
+        </div>
+
+        <!-- Startups -->
+        <div class="card">
+          <div class="card-header">Startups</div>
+          <div class="card-content">
+            <p>
+              Present startup ideas, connect with investors, and find
+              collaborators.
+            </p>
+            <a href="#" class="btn">Explore Startups</a>
+          </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="card">
+          <div class="card-header">Calendar</div>
+          <div class="card-content">
+            <p>
+              Stay informed about events and meetings within the NSUT community.
+            </p>
+            <a href="#" class="btn">View Calendar</a>
+          </div>
+        </div>
+
+        <!-- Sessions -->
+        <div class="card">
+          <div class="card-header">Sessions</div>
+          <div class="card-content">
+            <p>Request and conduct events with admin approval.</p>
+            <a href="#" class="btn">Request Session</a>
+          </div>
+        </div>
+
+        <!-- Articles -->
+        <div class="card">
+          <div class="card-header">Articles</div>
+          <div class="card-content">
+            <p>
+              Share and read insights, experiences, and knowledge through
+              articles.
+            </p>
+            <a href="#" class="btn">Read Articles</a>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.querySelector(".sidebar");
+        const mainContent = document.querySelector(".main-content");
+        const header = document.querySelector(".header");
+        const toggleBtn = document.querySelector(".toggle-btn");
+        const toggleIcon = document.getElementById("toggle-icon");
+
+        sidebar.classList.toggle("closed");
+        mainContent.classList.toggle("full-width");
+        header.classList.toggle("full-width");
+        toggleBtn.classList.toggle("closed");
+
+        if (sidebar.classList.contains("closed")) {
+          toggleIcon.src = "open.png";
+        } else {
+          toggleIcon.src = "close.png";
+        }
+      }
+    </script>
+  </body>
+</html>

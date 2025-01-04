@@ -218,7 +218,7 @@
   </head>
   <body>
     <button class="toggle-btn" onclick="toggleSidebar()">
-      <img src="close.png" alt="Toggle Sidebar" id="toggle-icon" />
+      <img src="assets/close.png" alt="Toggle Sidebar" id="toggle-icon" />
     </button>
     <div class="sidebar">
       <div class="sidebar-buttons">
@@ -238,7 +238,7 @@
 
     <div class="header">
       <h1>Nalum Portal Dashboard</h1>
-      <a href="main.html" class="sign-out btn">Sign Out</a>
+      <a href="landingPage.html" class="sign-out btn">Sign Out</a>
     </div>
 
     <div class="main-content">
@@ -348,9 +348,9 @@
         toggleBtn.classList.toggle("closed");
 
         if (sidebar.classList.contains("closed")) {
-          toggleIcon.src = "open.png";
+          toggleIcon.src = "assets/open.png";
         } else {
-          toggleIcon.src = "close.png";
+          toggleIcon.src = "assets/close.png";
         }
       }
     </script>
